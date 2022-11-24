@@ -1,8 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { exerciseOptions, fetchData } from "../functions/fetchData";
+import HorizontalScroll from "./HorizontalScroll";
 
-const SearchSection = () => {
+const SearchSection = ({ setExercises, bodyPart, setBodyPart }) => {
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [bodyParts, setBodyParts] = useState([]);
+
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      const bodyPartsData = await fetchData(
+        "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
+        exerciseOptions
+      );
+
+      setBodyParts(["all", ...bodyPartsData]);
+    };
+    fetchExercisesData();
+  }, []);
 
   const handleSearch = async () => {
     if (searchTerm) {
@@ -11,7 +26,18 @@ const SearchSection = () => {
         "https://exercisedb.p.rapidapi.com/exercises",
         exerciseOptions
       );
-      console.log(exercisesData);
+
+      const filteredExercises = exercisesData.filter((exercise) => {
+        return (
+          exercise.name.toLowerCase().includes(searchTerm) ||
+          exercise.target.toLowerCase().includes(searchTerm) ||
+          exercise.equipment.toLowerCase().includes(searchTerm) ||
+          exercise.bodyPart.toLowerCase().includes(searchTerm)
+        );
+      });
+
+      setSearchTerm("");
+      setExercises(filteredExercises);
     }
   };
 
@@ -50,6 +76,13 @@ const SearchSection = () => {
             />
           </svg>
         </button>
+      </div>
+      <div className=" relative w-full p-2 ">
+        <HorizontalScroll
+          data={bodyParts}
+          bodyPart={bodyPart}
+          setBodyPart={setBodyPart}
+        />
       </div>
     </div>
   );
