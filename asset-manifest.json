@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/expertcise/static/css/main.a09f23b3.css",
+    "main.js": "/expertcise/static/js/main.6599ac27.js",
+    "static/media/gym.png": "/expertcise/static/media/gym.6e701417c428e2fbc267.png",
+    "index.html": "/expertcise/index.html",
+    "main.a09f23b3.css.map": "/expertcise/static/css/main.a09f23b3.css.map",
+    "main.6599ac27.js.map": "/expertcise/static/js/main.6599ac27.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a09f23b3.css",
+    "static/js/main.6599ac27.js"
+  ]
+}
